@@ -1,0 +1,13 @@
+#ifndef PUPPIMET_H
+#define PUPPIMET_H
+
+#include "data.h"
+// #include <cmath>
+#define NPOINT 16
+#define POLY_MAP 0.004363323129985824 // pi / 720
+
+void puppimet_xy(Particle_T in_particles[NPARTICLES], Particle_xy &met_xy, METCtrlToken token_d, METCtrlToken& token_q);
+void pxpy_to_ptphi(Particle_xy met_xy, Sum &out_met, METCtrlToken token_d, METCtrlToken& token_q);
+
+
+#endif
