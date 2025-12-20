@@ -1,12 +1,7 @@
 #include <cassert>
 #include <cmath>
 #include <cstdio>
-// #include "../../utils/DumpFileReader.h"
-// #include "L1Trigger/Phase2L1ParticleFlow/interface/deregionizer/deregionizer_ref.h"
-// #include "../../l2-deregionizer/ref/rufl_io.h"
 #include "utils/rufl_io.h"
-// #include "../../l2-deregionizer/ref/test_util.h"
-// #include "L1Trigger/Phase2L1ParticleFlow/interface/jetmet/L1PFMetEmulator.h"
 #include "firmware/puppimet.h"
 
 
@@ -30,7 +25,7 @@ int main() {
   int n_Unmatched = 0;
 
   // Read Input Particles & Ref MET
-  FILE* inParticlesFile = fopen("ParticlesIn.txt", "w");
+  FILE* inParticlesFile = fopen("ParticlesIn.txt", "r");
   if(inParticlesFile != NULL){
     read_rufl_file<PuppiObj>(inParticlesFile, totalParticles, false);
   }
@@ -76,6 +71,9 @@ int main() {
       met_sw_px -= particles[i].hwPt.to_float() * cos(floatPhi(particles[i].hwPhi));
       met_sw_py -= particles[i].hwPt.to_float() * sin(floatPhi(particles[i].hwPhi));
     }
+
+    met_sw_pt = hypot(met_sw_px, met_sw_py);
+    met_sw_phi = atan2(met_sw_py, met_sw_px);
 
     // HLS MET Calculation
     puppimet_xy(particles, met_xy, token_d, token_q);

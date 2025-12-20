@@ -36,17 +36,6 @@ open_project -reset "MET_Sim"
 
 set_top puppimet_xy
 
-# add_files -tb ${CMSSW_BASE}/src/L1Trigger/Phase2L1ParticleFlow/src/deregionizer/deregionizer_input.cpp -cflags "${cflags}"
-# add_files -tb ${CMSSW_BASE}/src/L1Trigger/Phase2L1ParticleFlow/src/deregionizer/deregionizer_ref.cpp -cflags "${cflags}"
-# add_files -tb ${CMSSW_BASE}/src/DataFormats/L1TParticleFlow/src/layer1_emulator.cpp -cflags "${cflags}"
-
-# add_files -tb ${CMSSW_BASE}/src/L1Trigger/Phase2L1ParticleFlow/data/met/l1met_ptphi2pxpy_poly2_v1.json
-
-# add_files -tb ../../dumpfiles/TTbar_PU200_Barrel.dump
-# add_files -tb ../../dumpfiles/TTbar_PU200_HGCal.dump
-# add_files -tb ../../dumpfiles/TTbar_PU200_HGCalNoTK.dump
-# add_files -tb ../../dumpfiles/TTbar_PU200_HF.dump
-
 add_files -tb tb_puppimet.cpp -cflags "${cflags}"
 add_files -tb ./firmware/puppimet.cpp -cflags "${cflags}"
 

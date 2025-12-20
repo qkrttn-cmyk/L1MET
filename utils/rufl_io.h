@@ -5,7 +5,6 @@
 #include <algorithm>
 #include <numeric>
 #include <string>
-// #include "L1Trigger/Phase2L1ParticleFlow/interface/deregionizer/deregionizer_input.h"
 
 void write_rufl_header(FILE* file, const char* title){
     fprintf(file, "%s\n", title);

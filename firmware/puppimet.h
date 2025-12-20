@@ -2,7 +2,6 @@
 #define PUPPIMET_H
 
 #include "data.h"
-// #include <cmath>
 #define NPOINT 16
 #define POLY_MAP 0.004363323129985824 // pi / 720
 
