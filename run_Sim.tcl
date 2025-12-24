@@ -47,7 +47,7 @@ open_solution -reset "solution"
 set_part {xcvu13p-flga2577-2-e}
 create_clock -period 3.0 -name default
 
-csim_design
-
+# csim_design
+csim_design -ldflags "-B /usr/lib/x86_64-linux-gnu"
 
 exit
