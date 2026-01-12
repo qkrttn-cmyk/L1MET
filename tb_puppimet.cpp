@@ -57,6 +57,16 @@ int main() {
     double met_sw_pt = 0;
     double met_sw_phi = 0;
 
+    // For LUT REF
+    typedef ap_fixed<12, 2> LUT_tri_T;
+    Particle_xy LUT_ref_xy;
+    LUT_ref_xy.hwPx = 0;
+    LUT_ref_xy.hwPy = 0;
+    Sum LUT_ref_met;
+    LUT_tri_T LUT_cos = 0;
+    LUT_tri_T LUT_sin = 0;
+
+    // For HLS
     Particle_xy met_xy;
     Sum hw_met;
     METCtrlToken token_d;
@@ -70,10 +80,20 @@ int main() {
       // SW MET Calculation
       met_sw_px -= particles[i].hwPt.to_float() * cos(floatPhi(particles[i].hwPhi));
       met_sw_py -= particles[i].hwPt.to_float() * sin(floatPhi(particles[i].hwPhi));
+
+      // LUT REF Calculation
+      LUT_cos = LUT_tri_T(cos(floatPhi(particles[i].hwPhi)));
+      LUT_sin = LUT_tri_T(sin(floatPhi(particles[i].hwPhi)));
+      LUT_ref_xy.hwPx -= particles[i].hwPt * LUT_cos;
+      LUT_ref_xy.hwPy -= particles[i].hwPt * LUT_sin;
     }
 
+    // SW MET pT, Phi
     met_sw_pt = hypot(met_sw_px, met_sw_py);
     met_sw_phi = atan2(met_sw_py, met_sw_px);
+
+    // LUT REF pT, Phi
+    pxpy_to_ptphi(LUT_ref_xy, LUT_ref_met, token_d, token_q);
 
     // HLS MET Calculation
     puppimet_xy(particles, met_xy, token_d, token_q);
@@ -101,6 +121,12 @@ int main() {
                 << ", phi: " << floatPhi(phi_t(met_ref[iEvent][0].hwPhi)) << "\n"
                 << "Binary Pt: " << met_ref[iEvent][0].hwPt.to_string()
                 << ", Binary Phi: " << met_ref[iEvent][0].hwPhi.to_string()
+                << std::endl;
+
+      std::cout << "Calculated LUT MET (Expected): " << LUT_ref_met.hwPt.to_float() 
+                << ", phi: " << floatPhi(phi_t(LUT_ref_met.hwPhi)) << "\n"
+                << "Binary Pt: " << LUT_ref_met.hwPt.to_string()
+                << ", Binary Phi: " << LUT_ref_met.hwPhi.to_string()
                 << std::endl;
 
       std::cout << "Calculated HLS MET: " << met_hls[0].hwPt.to_float() 
