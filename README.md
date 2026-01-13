@@ -20,6 +20,7 @@ The setup includes:
 
 The C testbench compares between REF result and HLS MET output.
 ```
+tar -zxvf data.tar.gz
 vitis_hls -f run_Sim.tcl "{nevents=1000 write=1 debug=1 verbose=1}"
 ```
 
